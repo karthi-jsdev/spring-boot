@@ -1,0 +1,61 @@
+package com.jvlcode.example.springboot_demo.controllers;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.jvlcode.example.springboot_demo.entity.UserEntity;
+import com.jvlcode.example.springboot_demo.exceptions.ResourceNotFoundException;
+import com.jvlcode.example.springboot_demo.model.User;
+import com.jvlcode.example.springboot_demo.repository.UserRepository;
+
+@RestController
+@RequestMapping("/api/users")
+public class UserController {
+	@Autowired
+	private UserRepository userRepository;
+//	@GetMapping
+//	public String getUser(){
+//		return "Hello jvl code";
+//	}
+	@GetMapping
+	public List<UserEntity> getUser(){
+		//return Arrays.asList(new User(1L,"karthikeyan","karthi.jsdev@gmail.com"),new User(2L,"Tharani","tharu.shan95@gmail.com"),new User(3L,"sadhana","karthi.cser@gmail.com"));
+		return userRepository.findAll();
+	}
+	
+	@PostMapping
+	public UserEntity createUser(@RequestBody UserEntity user) {
+		return userRepository.save(user);
+	}
+	
+	@GetMapping("/{id}")
+	public UserEntity getUserById(@PathVariable Long id){
+		return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found in this id"+id));
+	}
+	
+	@PutMapping("/{id}")
+	public UserEntity updateUser(@PathVariable Long id,@RequestBody UserEntity user) {
+		UserEntity userData = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found in this id"+id));
+		userData.setEmail(user.getEmail());
+		userData.setName(user.getName());
+		return userRepository.save(userData);
+	}
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+		UserEntity userData = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found in this id"+id));
+		userRepository.delete(userData);
+		return ResponseEntity.ok().build();
+	}
+}
