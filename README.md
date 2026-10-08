@@ -142,4 +142,16 @@ SpringBoot Security
 			↓
 	Authentication successful
 	
-2. JWT Token	
+2. JWT Token
+		maven jjwt-api dependency add in the pom.xml
+		get all the dependency in the gitrepo below link
+		https://github.com/jwtk/jjwt#maven
+		
+3. Generate JWT Token
+	Create security package
+	create jwtutil
+	create generateToken
+
+4.Create Login Api
+	create the authcontroller
+	
