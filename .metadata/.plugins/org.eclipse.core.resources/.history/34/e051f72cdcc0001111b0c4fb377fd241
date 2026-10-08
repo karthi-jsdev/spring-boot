@@ -1,0 +1,36 @@
+package com.jvlcode.example.springboot_demo.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.User.UserBuilder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) {
+		http.authorizeHttpRequests(authz -> 
+			authz.requestMatchers("/api/users/**").authenticated()
+			.requestMatchers("/").permitAll()
+		).formLogin(form -> form.permitAll())
+		;
+		return http.build();
+	}
+	
+	public void userDetailService() {
+		UserBuilder user = User.withUsername("alice")
+				.password("user123")
+				.roles("USER")
+				.build();
+		
+		UserBuilder admin = User.withUsername("zack")
+				.password("admin123")
+				.roles("USER")
+				.build();
+	}
+}

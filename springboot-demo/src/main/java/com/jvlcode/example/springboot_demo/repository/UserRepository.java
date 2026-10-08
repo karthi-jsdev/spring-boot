@@ -4,6 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.jvlcode.example.springboot_demo.entity.UserEntity;
 
-public interface UserRepository extends JpaRepository<UserEntity, Long>{
+import java.util.Optional;
 
+public interface UserRepository extends JpaRepository<UserEntity, Long>{
+    Optional<UserEntity> findByUsername(String username);
 }

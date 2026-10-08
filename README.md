@@ -89,5 +89,57 @@
 	
 17. maven springdoc openai starter	
 	swagger api documentation
-18. 	
+
+
+===============================================================================
+SpringBoot Security
+===============================================================================
+
+1. maven spring boot starter Security
+	add the dependency to the pom.xml
+
+2. Creating Home Controller to restrict the api only for specific apis
+		@Controller
+		@ResponseBody
+
+3. security filter chain 
+	creating new config package in the demo package
 	
+
+4.	create new class securityConfig
+	@Configuration
+	@EnableWebSecurity
+	
+5. @Bean	
+	security filter chain object 
+	
+6. disable the  csrf
+
+7. save encrypted username and password
+
+====================================================================================
+	Login Method with db credentials
+====================================================================================
+
+1. create new service 
+	CustomUserDetailsService
+	in userrepository mention the method name
+	inside the securityConfig use DAO authprovider
+	
+	Login username/password
+        ↓
+	CustomUserDetailsService
+			↓
+	findByUsername(username)
+			↓
+	UserEntity from DB
+			↓
+	username + BCrypt password + ROLE_USER
+			↓
+	DaoAuthenticationProvider
+			↓
+	PasswordEncoder
+			↓
+	Authentication successful
+	
+2. JWT Token	
