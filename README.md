@@ -2,6 +2,11 @@
 
 1. https://start.spring.io/
 	spring initialiser to start the project
+	add the spring web dependency
+	in eclipse - add the maven dependency
+	in intellij - right click pom.xml add the maven 
+	mvn clean install
+	
 2. create controller package- 
 		annotations
 		@RestController
@@ -15,12 +20,15 @@
 	add in the pom.xml
 	
 4. Create Model package- 
-		name,id right click generate getter and setter
+		name,id,email right click generate getter and setter
 		right click create constructor
-
+	in controller return the values with contstructor
+	return Arrays.asList(new User(1L,"karthikeyan","karthi.cser@gmail.com"));
+		
+		
 5. Mysql install community edition
 
-6. in google search - maven spring boot starter jpa
+6. in google search - maven spring boot starter jpa - Java Persistence API
 	click on the version
 	add in the pom.xml
 
